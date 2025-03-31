@@ -1,0 +1,33 @@
+<div class="dashboard-profile">
+  <!-- Profile Picture or Initials -->
+  <div class="profile-icon" (click)="viewProfile()">
+    <img *ngIf="profileData?.profile_pic; else initials" [src]="profileData.profile_pic" alt="Profile Picture">
+    <ng-template #initials>
+      <div class="initials">{{ getInitials(profileData?.full_name) }}</div>
+    </ng-template>
+  </div>
+
+  <!-- Username Display -->
+  <div class="user-info">
+    <h3>{{ profileData?.full_name || 'User' }}</h3>
+  </div>
+</div>
+
+<!-- Notifications Section -->
+<div class="notifications">
+  <h3>Notifications</h3>
+  <ul *ngIf="notifications.length > 0; else noNotifications">
+    <li *ngFor="let notification of notifications">
+      <p>{{ notification.message }}</p>
+      <span class="timestamp">{{ notification.timestamp | date:'short' }}</span>
+    </li>
+  </ul>
+  <ng-template #noNotifications>
+    <p>No notifications available.</p>
+  </ng-template>
+</div>
+
+<!-- Feature Components -->
+<!-- <app-report-issue></app-report-issue> -->
+<app-user-dashboard></app-user-dashboard>
+<app-my-issues></app-my-issues>

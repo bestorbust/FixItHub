@@ -1,0 +1,30 @@
+<div class="manage-issues-container">
+    <h2>Manage Issues</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Reported By</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let issue of issues">
+          <td>{{ issue.title }}</td>
+          <td>{{ issue.description }}</td>
+          <td>{{ issue.reported_by }}</td>
+          <td>
+            <select [(ngModel)]="issue.status" (change)="updateStatus(issue._id, issue.status)">
+              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+            </select>
+          </td>
+          <td>
+            <button (click)="deleteIssue(issue._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

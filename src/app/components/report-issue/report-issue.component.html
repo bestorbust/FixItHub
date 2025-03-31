@@ -1,0 +1,215 @@
+<!-- <div class="report-issue-container">
+    <h2>Report an Issue</h2>
+    <form (submit)="submitIssue()">
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="issueData.title" required />
+  
+      <label>Description:</label>
+      <textarea [(ngModel)]="issueData.description" required></textarea>
+  
+      <label>Location:</label>
+      <input type="text" [(ngModel)]="issueData.location" required />
+  
+      <label>Category:</label>
+      <select [(ngModel)]="issueData.category" required>
+        <option value="Roads">Roads</option>
+        <option value="Water">Water</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Sanitation">Sanitation</option>
+        <option value="Public Safety">Public Safety</option>
+      </select>
+  
+      <label>Priority:</label>
+      <select [(ngModel)]="issueData.priority">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+  
+      <label>Contact Information:</label>
+      <input type="text" [(ngModel)]="issueData.contact_info" />
+  
+      <label>Tags (comma-separated):</label>
+      <input type="text" [(ngModel)]="issueData.tags" />
+  
+      <label>Upload Images:</label>
+      <input type="file" multiple (change)="onFileSelected($event)" />
+  
+      <label>
+        <input type="checkbox" [(ngModel)]="issueData.anonymous" />
+        Report Anonymously
+      </label>
+  
+      <button type="submit" [disabled]="isSubmitting">Submit Issue</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+  </div>
+   -->
+<!-- 
+   <div class="report-issue-container">
+    <h2>Report an Issue</h2>
+    <form (ngSubmit)="submitIssue()">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="issueData.title" required />
+  
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="issueData.description" required></textarea>
+  
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" [(ngModel)]="issueData.location" required />
+  
+      <label for="category">Category:</label>
+      <select id="category" name="category" [(ngModel)]="issueData.category" required>
+        <option value="Roads">Roads</option>
+        <option value="Water">Water</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Sanitation">Sanitation</option>
+        <option value="Public Safety">Public Safety</option>
+      </select>
+  
+      <label for="priority">Priority:</label>
+      <select id="priority" name="priority" [(ngModel)]="issueData.priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+  
+      <label for="contact_info">Contact Information:</label>
+      <input type="text" id="contact_info" name="contact_info" [(ngModel)]="issueData.contact_info" />
+  
+      <label for="tags">Tags (comma-separated):</label>
+      <input type="text" id="tags" name="tags" [(ngModel)]="issueData.tags" />
+  
+      <label for="images">Upload Images:</label>
+      <input type="file" id="images" multiple (change)="onFileSelected($event)" />
+  
+      <label>
+        <input type="checkbox" name="anonymous" [(ngModel)]="issueData.anonymous" />
+        Report Anonymously
+      </label>
+  
+      <button type="submit" [disabled]="isSubmitting">Submit Issue</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+  </div>
+   -->
+<!-- 
+   <div class="report-issue-container">
+    <h2>Report an Issue</h2>
+    <form (ngSubmit)="submitIssue()">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="issueData.title" required />
+  
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="issueData.description" required></textarea>
+  
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" [(ngModel)]="issueData.location" required />
+  
+      <label for="category">Category:</label>
+      <select id="category" name="category" [(ngModel)]="issueData.category" required>
+        <option value="Roads">Roads</option>
+        <option value="Water">Water</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Sanitation">Sanitation</option>
+        <option value="Public Safety">Public Safety</option>
+      </select>
+  
+      <label for="priority">Priority:</label>
+      <select id="priority" name="priority" [(ngModel)]="issueData.priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+  
+      <label for="contact_info">Contact Information:</label>
+      <input type="text" id="contact_info" name="contact_info" [(ngModel)]="issueData.contact_info" />
+  
+      <label for="tags">Tags (comma-separated):</label>
+      <input
+        type="text"
+        id="tags"
+        name="tags"
+        [(ngModel)]="issueData.tagsString"
+        (input)="updateTags()"
+      />
+  
+      <label for="images">Upload Images:</label>
+      <input type="file" id="images" multiple (change)="onFileSelected($event)" />
+  
+      <label>
+        <input type="checkbox" name="anonymous" [(ngModel)]="issueData.anonymous" />
+        Report Anonymously
+      </label>
+  
+      <button type="submit" [disabled]="isSubmitting">Submit Issue</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+  </div>
+   -->
+   <div class="report-issue-container">
+    <h2>Report an Issue</h2>
+  
+    <form (ngSubmit)="submitIssue()">
+      <!-- Title -->
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="issueData.title" required />
+  
+      <!-- Description -->
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="issueData.description" required></textarea>
+  
+      <!-- Location -->
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" [(ngModel)]="issueData.location" required />
+  
+      <!-- Category -->
+      <label for="category">Category:</label>
+      <select id="category" name="category" [(ngModel)]="issueData.category" required>
+        <option value="Roads">Roads</option>
+        <option value="Water">Water</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Sanitation">Sanitation</option>
+        <option value="Public Safety">Public Safety</option>
+      </select>
+  
+      <!-- Priority -->
+      <label for="priority">Priority:</label>
+      <select id="priority" name="priority" [(ngModel)]="issueData.priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+  
+      <!-- Contact Information -->
+      <label for="contact_info">Contact Information:</label>
+      <input type="text" id="contact_info" name="contact_info" [(ngModel)]="issueData.contact_info" />
+  
+      <!-- Tags -->
+      <label for="tags">Tags (comma-separated):</label>
+      <input
+        type="text"
+        id="tags"
+        name="tags"
+        [(ngModel)]="issueData.tagsString"
+        (input)="updateTags()"
+      />
+  
+      <!-- Upload Images -->
+      <label for="images">Upload Images:</label>
+      <input type="file" id="images" multiple (change)="onFileSelected($event)" />
+  
+      <!-- Anonymous Report -->
+      <label class="checkbox-label">
+        <input type="checkbox" name="anonymous" [(ngModel)]="issueData.anonymous" />
+        Report Anonymously
+      </label>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="isSubmitting">Submit Issue</button>
+  
+      <!-- Error Message -->
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+  </div>
+  

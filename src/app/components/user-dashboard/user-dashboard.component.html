@@ -1,0 +1,48 @@
+<div class="dashboard-container">
+  <h2>Reported Issues</h2>
+
+  <div *ngFor="let issue of issues" class="issue-card">
+    
+    <img [src]="issue.images[0]" *ngIf="issue.images.length > 0" alt="Issue Image" class="issue-image">
+
+    <div class="issue-content">
+      <h3>{{ issue.title }}</h3>
+      <p>{{ issue.description }}</p>
+      <small>Category: {{ issue.category }} | Location: {{ issue.location }}</small>
+
+      <div class="vote-section">
+        <button (click)="upvoteIssue(issue._id)" class="btn upvote">
+          👍 Upvote
+        </button>
+
+        <button (click)="downvoteIssue(issue._id)" class="btn downvote">
+          👎 Downvote
+        </button>
+
+        <span class="vote-count">Votes: {{ issue.votes }}</span>
+      </div>
+
+      <div class="comment-section">
+        <input type="text" [(ngModel)]="newComment[issue._id]" placeholder="Write a comment..." class="comment-input" />
+        <button (click)="submitComment(issue._id)" class="btn comment-btn">Comment</button>
+      </div>
+
+      <button (click)="loadComments(issue._id)" class="btn show-comments">Show Comments</button>
+
+      <ul *ngIf="comments[issue._id]" class="comments-list">
+        <li *ngFor="let comment of comments[issue._id]" class="comment-item">
+          <span>{{ comment.comment }} - <b>{{ comment.user_email }}</b></span>
+
+          <button
+            *ngIf="comment.user_email === userEmail"
+            (click)="deleteComment(comment._id, issue._id)" 
+            class="btn delete-comment"
+          >
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

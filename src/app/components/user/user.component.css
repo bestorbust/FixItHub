@@ -1,0 +1,102 @@
+/* Dashboard Profile Section */
+.dashboard-profile {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.profile-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #007bff;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.initials {
+  font-size: 20px;
+}
+
+/* User Info */
+.user-info h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+/* Notifications Section */
+.notifications {
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.notifications h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.notifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.notifications li:last-child {
+  border-bottom: none;
+}
+
+.notifications p {
+  margin: 0;
+  color: #555;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: gray;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-icon {
+    margin-bottom: 10px;
+  }
+
+  .notifications {
+    width: 100%;
+  }
+}

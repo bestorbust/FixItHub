@@ -1,0 +1,34 @@
+<nav class="navbar">
+  <div class="logo">
+    <a routerLink="/" (click)="closeMenu()">Community Platform</a>
+  </div>
+
+  <!-- Mobile Menu Toggle -->
+  <div class="menu-toggle" (click)="toggleMenu()">☰</div>
+
+  <!-- Navigation Links -->
+  <ul class="nav-links" [ngClass]="{ 'menu-open': menuOpen }">
+    <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a></li>
+    <li *ngIf="!isLoggedIn()"><a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Login</a></li>
+    <li *ngIf="!isLoggedIn()"><a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a></li>
+    <ng-container *ngIf="isLoggedIn() && !isAdmin()">
+      <li><a routerLink="/user" routerLinkActive="active" (click)="closeMenu()">Dashboard</a></li>
+      <li><a routerLink="/my-issues" routerLinkActive="active" (click)="closeMenu()">My Issues</a></li>
+      <li><a routerLink="/issues" routerLinkActive="active" (click)="closeMenu()">Issues</a></li>
+      <li><a routerLink="/profile-details" routerLinkActive="active" (click)="closeMenu()">Profile</a></li>
+      <li><a routerLink="/report-issue" routerLinkActive="active" (click)="closeMenu()">Report Issue</a></li>
+    </ng-container>
+
+    <!-- Admin Navigation -->
+    <ng-container *ngIf="isLoggedIn() && isAdmin()">
+      <li><a routerLink="/admin" routerLinkActive="active" (click)="closeMenu()">Dashboard</a></li>
+      <li><a routerLink="/admin-profile" routerLinkActive="active" (click)="closeMenu()">Profile</a></li>
+      <li><a routerLink="/manage-issues" routerLinkActive="active" (click)="closeMenu()">Manage Issues</a></li>
+      <li><a routerLink="/manage-users" routerLinkActive="active" (click)="closeMenu()">Manage Users</a></li>
+    </ng-container>
+    <li *ngIf="isLoggedIn()"><button class="logout-btn" (click)="logout()">Logout</button></li>
+  </ul>
+</nav>
+
+<!-- Render pages here -->
+<router-outlet></router-outlet>

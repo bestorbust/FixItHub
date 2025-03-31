@@ -1,0 +1,35 @@
+<div class="user-management">
+    <h2> User Management</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Warnings</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.email }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.warnings || 0 }}</td>
+          <td [ngClass]="{ 'active': user.status === 'Active', 'deactivated': user.status === 'Deactivated' }">
+            {{ user.status }}
+          </td>
+          <td>
+            <button class="warn-btn" (click)="warnUser(user.email)">Warn</button>
+            <button class="deactivate-btn" [disabled]="user.status === 'Deactivated'" (click)="deactivateUser(user.email)">
+              Deactivate
+            </button>
+            <button class="activate-btn" *ngIf="user.status === 'Deactivated'" (click)="activateUser(user.email)">
+              Activate
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

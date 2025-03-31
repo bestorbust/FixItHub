@@ -1,0 +1,66 @@
+<div class="hero">
+    <h1>Raise Your Voice, Report Issues, Bring Change</h1>
+    <p>A platform to report, track, and resolve community issues.</p>
+  </div>
+  
+  <div class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>1. Register/Login</h3>
+        <p>Create an account to track and manage your reports.</p>
+      </div>
+      <div class="step">
+        <h3>2. Report an Issue</h3>
+        <p>Describe the issue, add location, and upload images.</p>
+      </div>
+      <div class="step">
+        <h3>3. Community Engagement</h3>
+        <p>Vote, comment, and support reported issues.</p>
+      </div>
+      <div class="step">
+        <h3>4. Resolution</h3>
+        <p>Authorities take action based on priority and engagement.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="latest-issues">
+    <h2>Latest Reported Issues</h2>
+    <div *ngIf="latestIssues.length > 0; else noIssues">
+      <div *ngFor="let issue of latestIssues" class="issue-card">
+        <h3>{{ issue.title }}</h3>
+        <p><strong>Category:</strong> {{ issue.category }}</p>
+        <p><strong>Location:</strong> {{ issue.address }}</p>
+        <p><strong>Status:</strong> {{ issue.status }}</p>
+        <p><strong>Votes:</strong> {{ issue.votes }}</p>
+        <!-- <a [routerLink]="'/issue/' + issue.id" class="view-btn">View Details</a> -->
+      </div>
+    </div>
+    <ng-template #noIssues>
+      <p>No issues reported yet. Be the first to report one!</p>
+    </ng-template>
+  </div>
+  
+  <div class="community-stats">
+    <h2>Community Engagement</h2>
+    <div class="stats">
+      <div class="stat">
+        <h3>1,200+</h3>
+        <p>Total Issues Reported</p>
+      </div>
+      <div class="stat">
+        <h3>800+</h3>
+        <p>Issues Resolved</p>
+      </div>
+      <div class="stat">
+        <h3>5,000+</h3>
+        <p>Active Users</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>© 2025 Community Issue Reporting Platform</p>
+  </div>
+  
