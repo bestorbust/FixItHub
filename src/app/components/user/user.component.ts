@@ -9,7 +9,7 @@ import { ProfileDetailsComponent } from '../profile-details/profile-details.comp
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [SharedModule,ReportIssueComponent,MyIssuesComponent,UserDashboardComponent,ProfileDetailsComponent],
+  imports: [SharedModule,MyIssuesComponent,UserDashboardComponent,],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })

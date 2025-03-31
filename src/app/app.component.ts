@@ -2,15 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router,RouterModule } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { LoginComponent } from './components/auth/login.component';
-import { RegisterComponent } from './components/auth/register.component';
 import { SharedModule } from './shared/shared/shared.module';
-import { HomeComponent } from './components/home/home.component';
 import { LocationService } from './services/location.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ RouterModule,HomeComponent,LoginComponent, RegisterComponent, SharedModule, RouterOutlet],
+  imports: [ RouterModule, SharedModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
