@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared/shared.module';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title = 'frontend';
   currentView: string = 'login';
   menuOpen: boolean = false;
 
