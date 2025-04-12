@@ -1,4 +1,4 @@
-name: Frontend CI with Docker
+name: Frontend CI/CD
 
 on:
   push:
@@ -12,45 +12,42 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Set up Node
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 18
 
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Install Chrome Dependencies (for headless)
+    - name: Install Chrome Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          fonts-liberation \
-          libappindicator3-1 \
-          libasound2 \
-          libnspr4 \
+          libasound2-dev \
           libx11-xcb1 \
-          libxtst6 \
           libnss3 \
-          lsb-release \
+          libxss1 \
+          libappindicator3-1 \
+          libatk-bridge2.0-0 \
+          libgtk-3-0 \
+          fonts-liberation \
           xdg-utils \
           wget
 
-    - name: Run Tests
-      run: npm run test -- --browsers=ChromeHeadless
+    - name: Install Node Dependencies
+      run: npm install
 
-    - name: Build App
-      run: npm run build --prod
+    - name: Run Angular Tests
+      run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v3
+    - name: Build Angular App
+      run: npm run build -- --configuration=production
 
-    - name: Log in to DockerHub
+    - name: Docker Login
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and Push Docker Image
+    - name: Docker Build and Push
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/fixithub-frontend:latest .
         docker push ${{ secrets.DOCKER_USERNAME }}/fixithub-frontend:latest

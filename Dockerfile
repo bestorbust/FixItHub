@@ -1,18 +1,34 @@
-FROM node:16 AS build
+FROM node:18
 
+# Install system dependencies for headless Chrome
+RUN apt-get update && apt-get install -y \
+  libasound2-dev \
+  libx11-xcb1 \
+  libnss3 \
+  libxss1 \
+  libappindicator3-1 \
+  libatk-bridge2.0-0 \
+  libgtk-3-0 \
+  fonts-liberation \
+  xdg-utils \
+  wget \
+  && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
 
-COPY package.json ./
+# Copy and install app dependencies
+COPY package*.json ./
 RUN npm install
 
+# Copy the rest of the app
 COPY . .
 
-RUN npm run build --prod
+# Build app
+RUN npm run build -- --configuration=production
 
-FROM nginx:alpine
+# Serve built app (use http-server or angular universal if SSR)
+RUN npm install -g http-server
+CMD ["http-server", "dist/frontend", "-p", "8080"]
 
-COPY --from=build /app/dist/your-angular-app /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
