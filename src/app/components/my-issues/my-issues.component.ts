@@ -44,6 +44,8 @@ export class MyIssuesComponent implements OnInit {
     this.selectedIssue = { ...issue };
     this.showEditModal = true;
   }
+
+
   
   // Update issue
   updateIssue() {
@@ -67,7 +69,20 @@ export class MyIssuesComponent implements OnInit {
       }
     );
   }
- 
+
+  reopenIssue(issueId: string) {
+    this.issueService.reopenIssue(issueId).subscribe(
+      (response) => {
+        alert('Issue reopened successfully');
+        this.loadMyIssues(); // Refresh list
+      },
+      (error) => {
+        alert('Error reopening issue');
+        console.error(error);
+      }
+    );
+  }
+  
   // Delete issue
   deleteIssue(issueId: string) {
     if (confirm('Are you sure you want to delete this issue?')) {

@@ -57,13 +57,17 @@
         </span>
       </p>
       <div class="buttons">
+
+        <button *ngIf="selectedIssue.status === 'Resolved'" (click)="reopenIssue(selectedIssue._id)">
+          Reopen
+        </button>
         <button class="edit-btn" (click)="openEditModal(issue)">Edit</button>
         <button class="delete-btn" (click)="deleteIssue(issue._id)">Delete</button>
       </div>
     </div>
   </div>
 
-  <!-- Edit Modal -->
+  
   <div class="modal-overlay" *ngIf="showEditModal">
     <div class="modal-content">
       <h2>Edit Issue</h2>
@@ -81,6 +85,8 @@
       <input [(ngModel)]="selectedIssue.location" type="text">
 
       <div class="modal-buttons">
+        
+        
         <button class="save-btn" (click)="updateIssue()">Save Changes</button>
         <button class="close-btn" (click)="showEditModal = false">Cancel</button>
       </div>

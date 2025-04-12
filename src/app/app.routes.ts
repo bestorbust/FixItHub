@@ -28,5 +28,7 @@ export const routes: Routes = [
     { path: 'user' , component: UserComponent, canActivate: [AuthGuard], data: { role: 'User' } },
     { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '**', redirectTo: '/home', pathMatch: 'full' }
+
 
 ];
