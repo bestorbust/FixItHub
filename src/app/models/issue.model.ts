@@ -8,5 +8,5 @@ export interface Issue {
   createdAt: string;
   votes: { upvotes: number; downvotes: number };
   comments: { user: string; text: string }[];
-  isUserIssue?: boolean;  // ✅ Add this field
+  isUserIssue?: boolean;
 }

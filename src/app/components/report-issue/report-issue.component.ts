@@ -3,8 +3,10 @@ import { IssueService } from '../../services/issue.service';
 import { LocationService } from '../../services/location.service';
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/shared/shared.module';
+
 @Component({
   selector: 'app-report-issue',
+  standalone: true,
   imports: [SharedModule],
   templateUrl: './report-issue.component.html',
   styleUrls: ['./report-issue.component.css']
@@ -36,9 +38,9 @@ export class ReportIssueComponent implements OnInit {
     try {
       const location = await this.locationService.getCurrentLocation();
       this.issueData.location = `${location.latitude}, ${location.longitude}`;
-      console.log(' Location fetched:', this.issueData.location);
+      console.log('Location fetched:', this.issueData.location);
     } catch (error) {
-      console.error(' Error fetching location:', error);
+      console.error('Error fetching location:', error);
       this.issueData.location = 'Unable to fetch location (Check permissions)';
     }
   }
@@ -50,6 +52,7 @@ export class ReportIssueComponent implements OnInit {
       this.issueData.images = [];
     }
   }
+
   updateTags() {
     this.issueData.tags = this.issueData.tagsString
       .split(',')
@@ -60,10 +63,10 @@ export class ReportIssueComponent implements OnInit {
   submitIssue() {
     this.isSubmitting = true;
     this.errorMessage = '';
-  
     this.updateTags();
-  
+
     const formData = new FormData();
+
     Object.entries(this.issueData).forEach(([key, value]) => {
       if (key === 'images') {
         this.issueData.images.forEach((file) => {
@@ -76,19 +79,19 @@ export class ReportIssueComponent implements OnInit {
       }
     });
 
-    console.log('Submitting FormData:',[...formData.entries()])
-  
+    console.log('Submitting FormData:', [...formData.entries()]);
+
     this.issueService.reportIssue(formData).subscribe({
       next: () => {
-        alert(' Issue reported successfully!');
+        alert('Issue reported successfully!');
         // this.router.navigate(['/dashboard']);
+        this.isSubmitting = false;
       },
       error: (error) => {
-        this.errorMessage = ' Failed to report issue. Try again!';
-        console.error("API Error:", error);
+        this.errorMessage = 'Failed to report issue. Try again!';
+        console.error('API Error:', error);
         this.isSubmitting = false;
       }
     });
   }
-
 }

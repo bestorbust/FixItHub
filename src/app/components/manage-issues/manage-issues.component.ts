@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import { SharedModule } from '../../shared/shared/shared.module';
-// import { IssueService } from '../../services/issue.service';
+
 @Component({
   selector: 'app-manage-issues',
   imports:[SharedModule],
@@ -21,7 +21,7 @@ export class ManageIssuesComponent implements OnInit {
   fetchIssues() {
     this.adminService.getIssues().subscribe({
       next: (data) => {
-        console.log("API Response:", data); // Debugging line
+        console.log("API Response:", data);
         this.issues = data;
         console.log("Issues Array:", this.issues);
       },
@@ -34,7 +34,7 @@ export class ManageIssuesComponent implements OnInit {
     this.adminService.updateIssueStatus(issueId, newStatus).subscribe(
       (response) => {
         if (response.success) {
-          this.fetchIssues(); // Refresh issue list
+          this.fetchIssues();
         }
       },
       (error) => {
@@ -48,7 +48,7 @@ export class ManageIssuesComponent implements OnInit {
       this.adminService.deleteIssue(issueId).subscribe(
         (response) => {
           if (response.success) {
-            this.fetchIssues(); // Refresh issue list
+            this.fetchIssues();
           }
         },
         (error) => {

@@ -3,11 +3,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { SharedModule } from '../../shared/shared/shared.module';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-profile-details',
-  imports:[SharedModule],
+  standalone: true,
+  imports: [SharedModule],
   templateUrl: './profile-details.component.html',
-  styleUrls: ['./profile-details.component.css']
+  styleUrls: ['./profile-details.component.css'],
 })
 export class ProfileDetailsComponent implements OnInit {
   userForm: FormGroup;
@@ -15,7 +17,11 @@ export class ProfileDetailsComponent implements OnInit {
   profilePicPreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService, private router:Router) {
+  constructor(
+    private fb: FormBuilder,
+    private profileService: ProfileService,
+    private router: Router
+  ) {
     this.userForm = this.fb.group({
       full_name: [''],
       username: [''],
@@ -23,7 +29,7 @@ export class ProfileDetailsComponent implements OnInit {
       phone: [''],
       address: [''],
       bio: [''],
-      profile_pic: ['']
+      profile_pic: [''],
     });
   }
 
@@ -46,37 +52,34 @@ export class ProfileDetailsComponent implements OnInit {
 
   onFileChange(event: any) {
     const file = event.target.files[0];
-  
     if (file) {
       this.selectedFile = file;
-  
-      // Preview the image
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.profilePicPreview = reader.result as string;  // Ensure it's a string for binding
+        this.profilePicPreview = reader.result as string;
       };
     }
   }
+
   goToDashboard(): void {
     this.router.navigate(['/user']);
   }
-  
+
   updateUserProfile() {
     const formData = new FormData();
-  
-    // Append all form values
+
     Object.keys(this.userForm.value).forEach((key) => {
       if (this.userForm.value[key]) {
         formData.append(key, this.userForm.value[key]);
       }
     });
-  
-    // Append the profile picture only if a new file is selected
+
     if (this.selectedFile instanceof File) {
       formData.append('profile_pic', this.selectedFile);
     }
-  
+
     this.profileService.updateUserProfile(formData).subscribe(
       (res: any) => {
         alert(res.message);
@@ -87,23 +90,5 @@ export class ProfileDetailsComponent implements OnInit {
         console.error('Error updating profile:', error);
       }
     );
-    
   }
-  
-  // updateUserProfile() {
-  //   const formData = new FormData();
-  //   Object.keys(this.userForm.value).forEach((key) => {
-  //     formData.append(key, this.userForm.value[key]);
-  //   });
-
-  //   if (this.selectedFile) {
-  //     formData.append('profile_pic', this.selectedFile);
-  //   }
-
-  //   this.profileService.updateUserProfile(formData).subscribe((res: any) => {
-  //     alert(res.message);
-  //     this.loadUserProfile();
-  //     this.isEditing = false;
-  //   });
-  // }
 }

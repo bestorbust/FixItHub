@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared/shared/shared.module';
-import { LocationService } from './services/location.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ RouterModule, SharedModule, RouterOutlet],
+  imports: [RouterModule, SharedModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -19,36 +19,41 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      const role = localStorage.getItem('role') || 'User'; // Default role if null
-      this.currentView = role === 'Admin' ? 'admin' : 'user';
+      this.updateViewBasedOnRole();
     }
+  }
+
+  updateViewBasedOnRole() {
+    const role = localStorage.getItem('role') || 'User'; // Default to 'User' if no role is found
+    this.currentView = role === 'Admin' ? 'admin' : 'user';
   }
 
   navigate(view: string) {
     this.currentView = view;
     this.closeMenu();
-    // this.menuOpen = false; // Close menu on navigation
   }
 
   logout() {
     this.authService.logout();
-    this.currentView = 'login';
+    this.currentView = 'login';  // Reset to login view after logout
     this.closeMenu();
-    // this.menuOpen = false; // Close menu after logout
-    this.router.navigate(['/login']); // Redirect to login
+    this.router.navigate(['/login']); // Redirect to login page
   }
 
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();
   }
+
   isAdmin(): boolean {
-    return this.currentView === 'admin';
+    // Check role directly from localStorage
+    return localStorage.getItem('role') === 'Admin';
   }
 
   toggleMenu() {
-    this.menuOpen = !this.menuOpen; // Toggle menu state
+    this.menuOpen = !this.menuOpen; // Toggle the mobile menu
   }
+
   closeMenu() {
-    this.menuOpen = false; // Close menu when a link is clicked
+    this.menuOpen = false; // Close the menu after navigation
   }
 }

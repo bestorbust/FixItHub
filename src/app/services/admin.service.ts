@@ -67,10 +67,6 @@
 //   return this.http.post<any>(`${this.baseUrl}/activate_user/${email}`, {}, { headers });
 // }
 
-
-
-
-
 // }
 import { Injectable } from '@angular/core';
 import { HttpClient ,HttpHeaders} from '@angular/common/http';

@@ -11,6 +11,7 @@
     <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a></li>
     <li *ngIf="!isLoggedIn()"><a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Login</a></li>
     <li *ngIf="!isLoggedIn()"><a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a></li>
+
     <ng-container *ngIf="isLoggedIn() && !isAdmin()">
       <li><a routerLink="/user" routerLinkActive="active" (click)="closeMenu()">Dashboard</a></li>
       <li><a routerLink="/my-issues" routerLinkActive="active" (click)="closeMenu()">My Issues</a></li>
@@ -26,6 +27,7 @@
       <li><a routerLink="/manage-issues" routerLinkActive="active" (click)="closeMenu()">Manage Issues</a></li>
       <li><a routerLink="/manage-users" routerLinkActive="active" (click)="closeMenu()">Manage Users</a></li>
     </ng-container>
+    
     <li *ngIf="isLoggedIn()"><button class="logout-btn" (click)="logout()">Logout</button></li>
   </ul>
 </nav>
