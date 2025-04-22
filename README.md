@@ -7,9 +7,9 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 # Backend
 
-https://github.com/bestorbust/FixItHubBackend
+[Backend](https://github.com/bestorbust/FixItHubBackend)
 
-# Live Website https://fixithub-two.vercel.app/
+# Live Website  [FixItHub](https://fixithub-two.vercel.app/)
 
 ## Development server
 
