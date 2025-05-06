@@ -11,6 +11,7 @@ import { SharedModule } from '../../shared/shared/shared.module';
 })
 export class AdminUsersComponent implements OnInit {
   users: any[] = [];
+  filterText: string = '';
 
   constructor(private adminService: AdminService) {}
 
@@ -27,6 +28,19 @@ export class AdminUsersComponent implements OnInit {
       (error) => {
         console.error('Error fetching users:', error);
       }
+    );
+  }
+
+  filteredUsers() {
+    if (!this.filterText.trim()) {
+      return this.users;
+    }
+  
+    const lowerFilter = this.filterText.toLowerCase();
+  
+    return this.users.filter(user =>
+      user.email.toLowerCase().includes(lowerFilter) ||
+      user.username.toLowerCase().includes(lowerFilter)
     );
   }
 

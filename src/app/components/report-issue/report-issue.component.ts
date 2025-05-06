@@ -60,6 +60,24 @@ export class ReportIssueComponent implements OnInit {
       .filter(tag => tag !== '');
   }
 
+  resetForm() {
+    this.issueData = {
+      title: '',
+      description: '',
+      location: '',
+      category: '',
+      priority: 'Medium',
+      contact_info: '',
+      tags: [],
+      tagsString: '',
+      anonymous: false,
+      images: []
+    };
+    this.isSubmitting = false;
+    this.errorMessage = '';
+    this.ngOnInit();
+  }
+  
   submitIssue() {
     this.isSubmitting = true;
     this.errorMessage = '';
@@ -84,7 +102,7 @@ export class ReportIssueComponent implements OnInit {
     this.issueService.reportIssue(formData).subscribe({
       next: () => {
         alert('Issue reported successfully!');
-        // this.router.navigate(['/dashboard']);
+        this.resetForm();
         this.isSubmitting = false;
       },
       error: (error) => {

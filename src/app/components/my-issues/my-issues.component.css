@@ -17,6 +17,33 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
+.filter-container {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-dropdown {
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.resolved {
+  color: green;
+  font-weight: bold;
+}
+
+.inprogress {
+  color: dodgerblue;
+  font-weight: bold;
+}
 
 /* Heading */
 h2 {

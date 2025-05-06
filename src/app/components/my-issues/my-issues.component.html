@@ -1,25 +1,38 @@
 <div class="container">
   <h2>My Reported Issues</h2>
 
-  <div *ngIf="myIssues.length === 0" class="no-issues">
-    <p>No issues reported yet.</p>
+  <!-- Status Filter Dropdown -->
+  <div class="filter-container">
+    <label>Filter by Status:</label>
+    <select [(ngModel)]="selectedStatus" class="filter-dropdown">
+      <option value="">All</option>
+      <option value="Pending">Pending</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Resolved">Resolved</option>
+    </select>
+  </div>
+
+  <div *ngIf="filteredMyIssues().length === 0" class="no-issues">
+    <p>No issues found.</p>
   </div>
 
   <div class="issue-list">
-    <div class="issue-card" *ngFor="let issue of myIssues">
+    <div class="issue-card" *ngFor="let issue of filteredMyIssues()">
       <h3>{{ issue.title }}</h3>
       <p>{{ issue.description }}</p>
       <p><strong>Category:</strong> {{ issue.category }}</p>
       <p><strong>Location:</strong> {{ issue.location }}</p>
       <p><strong>Status:</strong> 
-        <span [class.pending]="issue.status === 'Pending'" 
-              [class.resolved]="issue.status === 'Resolved'">
+        <span 
+          [class.pending]="issue.status === 'Pending'" 
+          [class.resolved]="issue.status === 'Resolved'"
+          [class.inprogress]="issue.status === 'In Progress'">
           {{ issue.status }}
         </span>
       </p>
-      <div class="buttons">
 
-        <button *ngIf="selectedIssue.status === 'Resolved'" (click)="reopenIssue(selectedIssue._id)">
+      <div class="buttons">
+        <button *ngIf="issue.status === 'Resolved'" (click)="reopenIssue(issue._id)">
           Reopen
         </button>
         <button class="edit-btn" (click)="openEditModal(issue)">Edit</button>
@@ -28,7 +41,7 @@
     </div>
   </div>
 
-  
+  <!-- Edit Modal -->
   <div class="modal-overlay" *ngIf="showEditModal">
     <div class="modal-content">
       <h2>Edit Issue</h2>
@@ -46,8 +59,6 @@
       <input [(ngModel)]="selectedIssue.location" type="text">
 
       <div class="modal-buttons">
-        
-        
         <button class="save-btn" (click)="updateIssue()">Save Changes</button>
         <button class="close-btn" (click)="showEditModal = false">Cancel</button>
       </div>

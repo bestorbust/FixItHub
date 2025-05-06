@@ -12,6 +12,8 @@ export class MyIssuesComponent implements OnInit {
   myIssues: any[] = [];
   selectedIssue: any = { title: '', description: '', category: '', location: '' };
   showEditModal: boolean = false;
+  selectedStatus: string = '';
+
 
   constructor(private issueService: IssueService, private router: Router) {}
 
@@ -31,9 +33,15 @@ export class MyIssuesComponent implements OnInit {
     );
   }
 
+  filteredMyIssues() {
+    return this.myIssues.filter(issue =>
+      this.selectedStatus === '' || issue.status === this.selectedStatus
+    );
+  }
+
   // Show edit modal with issue details
   openEditModal(issue: any) {
-    console.log("Opening edit modal for issue:", issue); // Debugging
+    console.log("Opening edit modal for issue:", issue);
   
     if (!issue._id) {
       console.error("Issue ID is undefined! Possible missing `_id` field in issue object:", issue);

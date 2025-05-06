@@ -15,7 +15,7 @@ export class UserDashboardComponent implements OnInit {
   newComment: { [key: string]: string } = {};
   userEmail: string | null = localStorage.getItem('user_email');
   votedIssues: { [key: string]: string } = {};
-  
+  selectedCategory: string = '';
 
   constructor(private issuesService: IssuesService) {}
 
@@ -39,6 +39,16 @@ export class UserDashboardComponent implements OnInit {
   }
 
 
+  get uniqueCategories() {
+    const categories = this.issues.map(issue => issue.category);
+    return [...new Set(categories)];
+  }
+
+  filteredIssues() {
+    return this.issues.filter(issue =>
+      this.selectedCategory === '' || issue.category === this.selectedCategory
+    );
+  }
   // Load comments for a specific issue
   loadComments(issueId: string): void {
     this.issuesService.getComments(issueId).subscribe({

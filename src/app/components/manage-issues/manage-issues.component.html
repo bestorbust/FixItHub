@@ -1,30 +1,74 @@
 <div class="manage-issues-container">
-    <h2>Manage Issues</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Reported By</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let issue of issues">
-          <td>{{ issue.title }}</td>
-          <td>{{ issue.description }}</td>
-          <td>{{ issue.reported_by }}</td>
-          <td>
-            <select [(ngModel)]="issue.status" (change)="updateStatus(issue._id, issue.status)">
-              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-            </select>
-          </td>
-          <td>
-            <button (click)="deleteIssue(issue._id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h2>Manage Issues</h2>
+
+  <!-- Status Summary -->
+  <div class="status-summary">
+    <span class="badge open">Pending: {{ countStatus('Pending') }}</span>
+    <span class="badge in-progress">In Progress: {{ countStatus('In Progress') }}</span>
+    <span class="badge resolved">Resolved: {{ countStatus('Resolved') }}</span>
   </div>
-  
+
+  <!-- Search + Filter -->
+  <div class="filter-section">
+    <input type="text" [(ngModel)]="searchText" placeholder="Search by title or reporter" class="search-input" />
+    <select [(ngModel)]="statusFilter" class="status-filter">
+      <option value="">All Statuses</option>
+      <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+    </select>
+    <button (click)="bulkDelete()" [disabled]="!selectedIssues.size">Delete Selected</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th (click)="sortBy('title')">Title ▲▼</th>
+        <th>Description</th>
+        <th (click)="sortBy('reported_by')">Reporter </th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let issue of filteredIssues()">
+        <td><input type="checkbox" (change)="toggleIssueSelection(issue._id)" /></td>
+        <td>{{ issue.title }}</td>
+        <td><button (click)="viewDescription(issue.description)">View</button></td>
+        <td>{{ issue.reported_by }}</td>
+        <td>
+          <span class="status-badge" [ngClass]="{
+            'open': issue.status === 'Pending',
+            'resolved': issue.status === 'Resolved',
+            'in-progress': issue.status === 'In Progress'
+          }">{{ issue.status }}</span>
+
+          <select [(ngModel)]="issue.status" (change)="updateStatus(issue._id, issue.status)">
+            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+          </select>
+        </td>
+        <td>
+          <span class="priority" [ngClass]="{
+            'low': issue.priority === 'Low',
+            'medium': issue.priority === 'Medium',
+            'high': issue.priority === 'High'
+          }">{{ issue.priority || 'Medium' }}</span>
+        </td>
+        <td>
+          <button (click)="deleteIssue(issue._id)">Delete</button>
+          <button *ngIf="issue.status !== 'Resolved'" (click)="markResolved(issue._id)">Resolve</button>
+          <button *ngIf="issue.status === 'Resolved'" (click)="reopenIssue(issue._id)">Reopen</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Description Modal -->
+  <div *ngIf="selectedDescription" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" (click)="selectedDescription = ''">&times;</span>
+      <h3>Description</h3>
+      <p>{{ selectedDescription }}</p>
+    </div>
+  </div>
+</div>
