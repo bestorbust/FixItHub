@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class IssueService {
-  private apiUrl = 'https://fixithubbackend.onrender.com/';
+  private apiUrl = 'https://fixithubbackend.onrender.com';
 
   constructor(private http: HttpClient) {}
 
