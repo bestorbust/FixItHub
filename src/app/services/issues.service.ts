@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class IssuesService {
-  private apiUrl = 'https://fixithubbackend.onrender.com/';
+  private apiUrl = 'https://fixithubbackend.onrender.com';
 
   constructor(private http: HttpClient) {}
 
